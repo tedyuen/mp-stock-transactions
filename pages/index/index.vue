@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<image src="https://cloud-minapp-34896.cloud.ifanrusercontent.com/1k1sVY2zm1LVUIiK.png" mode="aspectFit" class="logo"></image>
+		<image src="../../static/car.png" mode="aspectFit" class="logo"></image>
 		<view class="form">
 			<uni-list title="拼单信息确认">
 			    <uni-list-item
@@ -64,7 +64,7 @@
 					address: '上海市浦东新区张杨路2389弄LCM置汇旭辉广场'
 				},
 				terminalData: null,
-				phone: '18616990040',
+				phone: '',
 				time: '12:01',
 				currentDate: currentDate,
 				companyAddress: ['上海LCM旭辉职场'],
@@ -116,6 +116,12 @@
 					uni.hideLoading();
 					uni.navigateTo({
 						url: '../routelist/routelist'
+					})
+				}).catch(e => {
+					uni.hideLoading();
+					uni.showToast({
+						title: '重复手机号',
+						icon: 'none'
 					})
 				})
 			},
