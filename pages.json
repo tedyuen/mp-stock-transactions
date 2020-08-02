@@ -7,9 +7,9 @@
 			}
 		},
 		{
-		    "path" : "pages/success/success",
+		    "path" : "pages/routelist/routelist",
 		    "style" : {
-				"navigationBarTitleText": "我的拼车信息"
+				"navigationBarTitleText": "道友列表"
 			}
 		},
 		{
@@ -19,9 +19,9 @@
 			}
 		},
 		{
-		    "path" : "pages/routelist/routelist",
+		    "path" : "pages/success/success",
 		    "style" : {
-				"navigationBarTitleText": "道友列表"
+				"navigationBarTitleText": "我的拼车信息"
 			}
 		}
     ],

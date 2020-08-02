@@ -78,9 +78,36 @@
 		},
 		onShow () {
 			this.terminalData = chooseLocation.getLocation(); // 如果点击确认选点按钮，则返回选点结果对象，否则返回null
-			console.log(this.terminalData)
+			this.init()
 		},
 		methods: {
+			async init () {
+				try {
+					uni.showLoading({
+					    title: '正在查询订单'
+					});
+					const user = await uni.BaaS.auth.loginWithWechat()
+					console.log('user:', user)
+					let query = new uni.BaaS.Query();
+					console.log(user.created_by)
+					console.log(user.city)
+					query.compare('deleted', '=', 0)
+					query.compare('created_by', '=', user.created_by)
+					let MemberListObject = new uni.BaaS.TableObject('order_cust');
+					let res = await MemberListObject.setQuery(query).find();
+					console.log(res)
+					if (res.data.objects.length > 0) {
+						const params = `?id=${res.data.objects[0].order_id}`
+						uni.reLaunch({
+							url: `../success/success${params}`
+						})
+					}
+					uni.hideLoading();
+				} catch (err) {
+					uni.hideLoading();
+					console.log(err)
+				}
+			},
 			goNext (infoRes) {
 				if (this.terminalData == null) {
 					uni.showToast({
@@ -115,7 +142,7 @@
 					console.log(user)
 					uni.hideLoading();
 					uni.navigateTo({
-						url: '../routelist/routelist'
+						url: `../routelist/routelist?mylatitude=${this.terminalData.latitude}&mylongitude=${this.terminalData.longitude}&myaddress=${this.terminalData.name}`
 					})
 				}).catch(e => {
 					uni.hideLoading();
